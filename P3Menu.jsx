@@ -1,15 +1,39 @@
 import { useState, useEffect } from "react";
 
 const ITEMS = [
-  { id: "about",  label: "ABOUT ME",    href: "#about",  fontSize: 130, offsetX: 0,  offsetY: 0  },
-  { id: "resume", label: "RESUME",      href: "#resume", fontSize: 108, offsetX: 38, offsetY: -8 },
-  { id: "github", label: "GITHUB LINK", href: "https://github.com/yourname", fontSize: 88, offsetX: 14, offsetY: -6 },
+  {
+    id: "about",
+    label: "ABOUT ME",
+    href: "#about",
+    fontSize: 130,
+    offsetX: 0,
+    offsetY: 0,
+  },
+  {
+    id: "resume",
+    label: "RESUME",
+    href: "#resume",
+    fontSize: 108,
+    offsetX: 38,
+    offsetY: -8,
+  },
+  {
+    id: "github",
+    label: "GITHUB LINK",
+    href: "https://github.com/ajioswxld",
+    fontSize: 88,
+    offsetX: 14,
+    offsetY: -6,
+  },
 ];
 
 const CLIP_SHAPES = [
-  (w, h) => `polygon(0px ${h*0.06}px, ${w - h*0.55}px 0px, ${w}px ${h*0.42}px, ${w - h*0.18}px ${h}px, 0px ${h*0.94}px)`,
-  (w, h) => `polygon(${h*0.12}px 0px, ${w - h*0.3}px ${h*0.04}px, ${w}px ${h*0.5}px, ${w - h*0.08}px ${h}px, 0px ${h*0.88}px)`,
-  (w, h) => `polygon(0px ${h*0.1}px, ${w - h*0.4}px 0px, ${w}px ${h*0.45}px, ${w - h*0.25}px ${h}px, ${h*0.05}px ${h*0.9}px)`,
+  (w, h) =>
+    `polygon(0px ${h * 0.06}px, ${w - h * 0.55}px 0px, ${w}px ${h * 0.42}px, ${w - h * 0.18}px ${h}px, 0px ${h * 0.94}px)`,
+  (w, h) =>
+    `polygon(${h * 0.12}px 0px, ${w - h * 0.3}px ${h * 0.04}px, ${w}px ${h * 0.5}px, ${w - h * 0.08}px ${h}px, 0px ${h * 0.88}px)`,
+  (w, h) =>
+    `polygon(0px ${h * 0.1}px, ${w - h * 0.4}px 0px, ${w}px ${h * 0.45}px, ${w - h * 0.25}px ${h}px, ${h * 0.05}px ${h * 0.9}px)`,
 ];
 
 export default function P3Menu() {
@@ -23,9 +47,10 @@ export default function P3Menu() {
 
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === "ArrowUp")   setActive(i => Math.max(0, i - 1));
-      if (e.key === "ArrowDown") setActive(i => Math.min(ITEMS.length - 1, i + 1));
-      if (e.key === "Enter")     window.location.href = ITEMS[active].href;
+      if (e.key === "ArrowUp") setActive((i) => Math.max(0, i - 1));
+      if (e.key === "ArrowDown")
+        setActive((i) => Math.min(ITEMS.length - 1, i + 1));
+      if (e.key === "Enter") window.location.href = ITEMS[active].href;
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -170,7 +195,14 @@ export default function P3Menu() {
       `}</style>
 
       <div className="p3-root">
-        <video className="p3-video" src="/bg.mp4" autoPlay loop muted playsInline />
+        <video
+          className="p3-video"
+          src="/bg.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
         <div className="p3-circle" />
         <div className="p3-bg-word">SYSTEM</div>
         <div className="p3-scanlines" />
@@ -220,8 +252,14 @@ export default function P3Menu() {
         </nav>
 
         <div className={`p3-hint ${mounted ? "mounted" : ""}`}>
-          <div className="p3-hint-row"><span className="p3-hint-key">↑↓</span><span>NAVIGATE</span></div>
-          <div className="p3-hint-row"><span className="p3-hint-key">↵</span><span>CONFIRM</span></div>
+          <div className="p3-hint-row">
+            <span className="p3-hint-key">↑↓</span>
+            <span>NAVIGATE</span>
+          </div>
+          <div className="p3-hint-row">
+            <span className="p3-hint-key">↵</span>
+            <span>CONFIRM</span>
+          </div>
         </div>
       </div>
     </>
