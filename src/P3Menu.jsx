@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useTextHoverSound } from "./useTextHoverSound";
 import hoverSfx from "./assets/deck_ui_navigation.wav";
+import clickSfx from "./assets/deck_ui_default_activation.wav";
+import backSfx from "./assets/deck_ui_hide_modal.wav";
 
 const ITEMS = [
   {
@@ -65,6 +67,14 @@ const CLIP_SHAPES = [
 
 export default function P3Menu({ onNavigate }) {
   useTextHoverSound(hoverSfx);
+
+  const playClick = () => {
+    const audio = new Audio(clickSfx);
+    audio.volume = 1.0;
+    audio.currentTime = 0;
+    audio.play().catch((err) => console.warn("Click audio error", err));
+  };
+
   const [active, setActive] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [animKey, setAnimKey] = useState(0);
@@ -265,7 +275,7 @@ export default function P3Menu({ onNavigate }) {
 
       <div className="p3-overlay">
         <div className="p3-name-tag">
-          <span>jade's</span>
+          <span>Aji's</span>
           <span>persona</span>
         </div>
         <div className="p3-stripe" />
@@ -292,6 +302,7 @@ export default function P3Menu({ onNavigate }) {
                 }}
                 onClick={(e) => {
                   e.preventDefault();
+                  playClick();
                   onNavigate?.(item.page);
                 }}
                 onMouseEnter={() => activate(i)}
