@@ -94,7 +94,15 @@ export default function P3Menu({ onNavigate }) {
       if (e.key === "ArrowUp") activate(Math.max(0, active - 1));
       if (e.key === "ArrowDown")
         activate(Math.min(ITEMS.length - 1, active + 1));
-      if (e.key === "Enter") onNavigate?.(ITEMS[active].page);
+      if (e.key === "Enter") {
+        playClick();
+        onNavigate?.(ITEMS[active].page);
+      }
+      if (e.key === "Escape" || e.key === "Backspace") {
+        const audio = new Audio(backSfx);
+        audio.volume = 1.0;
+        audio.play().catch(() => {});
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -252,7 +260,7 @@ export default function P3Menu({ onNavigate }) {
         .p3-name-tag {
           position: absolute;
           top: 18px;
-          left: 22px;
+          left: 50px;
           z-index: 20;
           font-family: 'Anton', sans-serif;
           font-style: italic;
