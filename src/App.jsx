@@ -70,5 +70,40 @@ function AnimatedRoutes() {
 }
 
 export default function App() {
+  useEffect(() => {
+    const playSound = (src) => {
+      const audio = new Audio(src);
+      audio.volume = 1.0;
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+    };
+
+    // hover sfx — semua text element
+    const textTags = ["A", "BUTTON", "SPAN", "P", "H1", "H2", "H3", "LI"];
+    const handleHover = (e) => {
+      if (textTags.includes(e.target.tagName)) playSound(hoverSfx);
+    };
+
+    // click sfx
+    const handleClick = (e) => {
+      if (textTags.includes(e.target.tagName)) playSound(clickSfx);
+    };
+
+    // keyboard sfx
+    const handleKey = (e) => {
+      if (e.key === "ArrowUp" || e.key === "ArrowDown") playSound(navSfx);
+      if (e.key === "Escape" || e.key === "Backspace") playSound(backSfx);
+    };
+
+    document.addEventListener("mouseover", handleHover);
+    document.addEventListener("click", handleClick);
+    window.addEventListener("keydown", handleKey);
+
+    return () => {
+      document.removeEventListener("mouseover", handleHover);
+      document.removeEventListener("click", handleClick);
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, []);
   return <AnimatedRoutes />;
 }
